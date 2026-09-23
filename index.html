@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>eag1eR</title>
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="description" content="EaglerHub is a clean, static launcher for EaglerCraft clients and vanilla WASM builds, hosted on GitHub Pages. Pick a game and play — made by mr blob." />
+  <title>Eag · by mr blob</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23000'/%3E%3Ctext%20x='16'%20y='23'%20text-anchor='middle'%20font-family='Segoe%20UI,sans-serif'%20font-size='20'%20font-weight='700'%20fill='%23fff'%3EE%3C/text%3E%3C/svg%3E" />
   <style>
 :root {
-  --bg: #1e1e1e;
-  --surface: #252526;
-  --surface-2: #2d2d30;
-  --border: #3e3e42;
-  --text: #cccccc;
-  --muted: #858585;
-  --accent: #0078d4;
-  --accent-hover: #1084d8;
-  --warn-bg: #3a2a28;
-  --warn-text: #f48771;
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #171717;
+  --border: #262626;
+  --border-strong: #3d3d3d;
+  --text: #f2f2f2;
+  --muted: #909090;
+  --accent: #ffffff;
+  --accent-ink: #000000;
   --radius: 4px;
   --font: "Segoe UI", Tahoma, sans-serif;
   --ease: cubic-bezier(0.33, 1, 0.68, 1);
@@ -54,14 +56,10 @@ body {
   border: 0;
 }
 
-.atmosphere {
-  display: none;
-}
-
 .app {
   width: min(1100px, calc(100% - 24px));
   margin: 0 auto;
-  padding: 20px 0 40px;
+  padding: 24px 0 40px;
   animation: app-in var(--t-slow) var(--ease-soft) both;
 }
 
@@ -71,7 +69,7 @@ body {
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 16px;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -81,26 +79,18 @@ body {
   gap: 10px;
 }
 
-.brand-mark svg {
-  display: block;
-}
-
-.eyebrow {
-  display: none;
-}
-
 .brand-text h1 {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: normal;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .brand-sub {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 2px 0 0;
+  margin: 3px 0 0;
   color: var(--muted);
   font-size: 12px;
 }
@@ -111,40 +101,38 @@ body {
   height: 7px;
   border-radius: 50%;
   background: var(--muted);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
   transition: background var(--t-mid) var(--ease), transform var(--t-fast) var(--ease);
 }
 
 .ind-dot--local {
-  background: #4ec9b0;
-}
-
-.ind-dot--all {
-  background: #cccccc;
-}
-
-.ind-dot--client {
-  background: #569cd6;
-}
-
-.ind-dot--vanilla {
-  background: #b5cea8;
-}
-
-.ind-dot--mode {
   background: var(--accent);
 }
 
+.ind-dot--all {
+  background: #ffffff;
+}
+
+.ind-dot--client {
+  background: #b9b9b9;
+}
+
+.ind-dot--vanilla {
+  background: #6f6f6f;
+}
+
 .ind-dot--ok {
-  background: #4ec9b0;
+  background: #ffffff;
 }
 
 .ind-dot--warn {
-  background: #ce9178;
+  background: transparent;
+  border: 1.5px solid #ffffff;
 }
 
 .ind-dot--muted {
-  background: #6a6a6e;
+  background: #4a4a4a;
+  box-shadow: none;
 }
 
 .search {
@@ -163,13 +151,13 @@ body {
 }
 
 .search:focus-within {
-  border-color: #6a6a6e;
-  background-color: #2a2a2d;
+  border-color: var(--border-strong);
+  background-color: #161616;
 }
 
 .search.has-filter {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(0, 120, 212, 0.35);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28);
 }
 
 .search input {
@@ -180,6 +168,10 @@ body {
   color: var(--text);
   font: inherit;
   height: 32px;
+}
+
+.search input::placeholder {
+  color: #6f6f6f;
 }
 
 .toolbar {
@@ -200,9 +192,7 @@ body {
 }
 
 .tab,
-.ghost,
-.play,
-.mode-btn {
+.play {
   font: inherit;
   cursor: pointer;
 }
@@ -235,8 +225,8 @@ body {
 }
 
 .tab.is-active .tab-count {
-  background: rgba(0, 0, 0, 0.25);
-  color: var(--text);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--accent-ink);
 }
 
 .tab:last-child {
@@ -244,69 +234,38 @@ body {
 }
 
 .tab.is-active {
-  background: var(--surface-2);
+  background: var(--accent);
+  color: var(--accent-ink);
   font-weight: 600;
 }
 
-.launch-mode {
+.tab:focus-visible,
+.ghost:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.launch-note {
   border: 1px solid var(--border);
   background: var(--surface);
   border-radius: var(--radius);
   padding: 10px 12px;
-  max-width: 340px;
+  max-width: 380px;
 }
 
-.launch-mode-label {
-  margin: 0 0 8px;
+.launch-note-label {
+  margin: 0 0 4px;
   color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
-.mode-toggle {
-  display: flex;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.mode-btn {
-  flex: 1;
-  border: 0;
-  border-right: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  padding: 6px 10px;
-  font-size: 13px;
-  transition:
-    background var(--t-mid) var(--ease),
-    color var(--t-mid) var(--ease);
-}
-
-.mode-btn:last-child {
-  border-right: 0;
-}
-
-.mode-btn.is-active {
-  background: var(--accent);
-  color: #fff;
-}
-
-.mode-help {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.mode-active {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 8px 0 0;
+.launch-note-text {
+  margin: 0;
   color: var(--text);
   font-size: 12px;
-  font-weight: 600;
 }
 
 .indicator-bar {
@@ -353,19 +312,12 @@ body {
 }
 
 .chip--accent {
-  border-color: rgba(0, 120, 212, 0.55);
-  background: rgba(0, 120, 212, 0.12);
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .chip--ok {
-  border-color: rgba(78, 201, 176, 0.45);
-  background: rgba(78, 201, 176, 0.1);
-}
-
-.chip--busy {
-  border-color: rgba(206, 145, 120, 0.5);
-  background: rgba(206, 145, 120, 0.12);
-  animation: chip-pulse 1.2s var(--ease) infinite;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .chip--muted .chip-value {
@@ -374,19 +326,19 @@ body {
 }
 
 .chip--client {
-  border-color: rgba(86, 156, 214, 0.45);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .chip--client .chip-value {
-  color: #9cdcfe;
+  color: #dcdcdc;
 }
 
 .chip--vanilla {
-  border-color: rgba(181, 206, 168, 0.45);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .chip--vanilla .chip-value {
-  color: #b5cea8;
+  color: #a8a8a8;
 }
 
 .legend {
@@ -406,25 +358,8 @@ body {
   gap: 6px;
 }
 
-.banner,
 .status {
   margin: 0 0 12px;
-}
-
-.banner {
-  padding: 8px 10px;
-  border-radius: var(--radius);
-  background: var(--warn-bg);
-  color: var(--warn-text);
-  border: 1px solid #5a4038;
-  font-size: 13px;
-}
-
-.banner:not([hidden]) {
-  animation: slide-fade-in var(--t-mid) var(--ease-soft) both;
-}
-
-.status {
   color: var(--muted);
   font-size: 12px;
   transition: opacity var(--t-mid) var(--ease);
@@ -448,20 +383,16 @@ body {
   padding: 12px;
 }
 
-.packs .eyebrow {
-  display: block;
-  margin: 0 0 4px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: normal;
-  text-transform: none;
-}
-
 .packs-title {
   margin: 0 0 8px;
   font-size: 15px;
   font-weight: 600;
+}
+
+.side-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .pack-list {
@@ -489,14 +420,19 @@ body {
 }
 
 .pack:hover {
-  border-color: #555;
-  background: #333337;
+  border-color: var(--border-strong);
+  background: #1d1d1d;
   transform: translateY(-1px);
 }
 
 .pack:active {
   transform: translateY(0);
   transition-duration: 0.1s;
+}
+
+.pack:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
 }
 
 .pack.is-incompatible {
@@ -538,11 +474,10 @@ body {
   color: var(--accent);
   font-size: 12px;
   font-weight: normal;
-  transition: color var(--t-mid) var(--ease);
 }
 
 .pack:hover .download-label {
-  color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 .grid {
@@ -554,6 +489,7 @@ body {
 .card {
   text-align: left;
   color: inherit;
+  text-decoration: none;
   border: 1px solid var(--border);
   background: var(--surface);
   border-radius: var(--radius);
@@ -575,9 +511,14 @@ body {
 }
 
 .card:hover {
-  border-color: #555;
-  background: #2a2a2d;
+  border-color: var(--border-strong);
+  background: #141414;
   transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .card.is-selected {
@@ -610,19 +551,9 @@ body {
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--accent-ink);
   background: var(--accent);
   line-height: 1.5;
-}
-
-.card-flag--busy {
-  background: #ce9178;
-  animation: chip-pulse 1.2s var(--ease) infinite;
-}
-
-.card.is-launching {
-  border-color: #ce9178;
-  box-shadow: 0 0 0 1px rgba(206, 145, 120, 0.45);
 }
 
 .card.vanilla .badge {
@@ -648,182 +579,28 @@ body {
 }
 
 .play {
+  display: inline-block;
   margin-top: 8px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
   border-radius: var(--radius);
   padding: 6px 10px;
-  background: var(--surface-2);
-  color: var(--text);
-  font-weight: 600;
-  font-size: 13px;
-  transition:
-    background var(--t-mid) var(--ease),
-    border-color var(--t-mid) var(--ease),
-    transform var(--t-fast) var(--ease);
-}
-
-.play:hover {
-  background: #333337;
-  border-color: #555;
-}
-
-.play:active {
-  transform: scale(0.98);
-}
-
-.play:disabled {
-  opacity: 0.65;
-  cursor: wait;
-}
-
-.card.vanilla .play {
-  background: var(--surface-2);
-  color: var(--text);
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  display: grid;
-  place-items: center;
-  background: rgba(0, 0, 0, 0.55);
-}
-
-.overlay:not([hidden]) {
-  animation: overlay-in var(--t-mid) var(--ease) both;
-}
-
-.overlay:not([hidden]) .dialog {
-  animation: dialog-in var(--t-slow) var(--ease-soft) 0.05s both;
-}
-
-.overlay[hidden],
-.stage[hidden] {
-  display: none !important;
-}
-
-.stage {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  background: #000;
-}
-
-.stage:not([hidden]) {
-  animation: stage-in var(--t-mid) var(--ease) both;
-}
-
-.stage:not([hidden]) iframe {
-  animation: stage-body-in var(--t-slow) var(--ease-soft) 0.08s both;
-}
-
-.stage-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 12px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-}
-
-.stage-bar p {
-  margin: 0;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.stage iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: #000;
-}
-
-.ghost.compact {
-  margin-top: 0;
-  width: auto;
-  padding: 5px 10px;
-  font-size: 13px;
-}
-
-.dialog {
-  width: min(360px, calc(100% - 24px));
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-}
-
-.dialog .eyebrow {
-  display: block;
-  margin: 0;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-.dialog h2 {
-  margin: 4px 0 8px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.dialog p {
-  margin: 0;
-  font-size: 13px;
-}
-
-.progress {
-  margin-top: 12px;
-  height: 6px;
-  overflow: hidden;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 0;
-}
-
-.progress-fill {
-  width: 0%;
-  height: 100%;
   background: var(--accent);
-  transition: width 0.35s var(--ease-soft);
-  transform-origin: left center;
-}
-
-.pct {
-  margin-top: 6px !important;
-  color: var(--muted);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  transition: opacity var(--t-fast) var(--ease);
-}
-
-.ghost {
-  margin-top: 12px;
-  width: 100%;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text);
-  border-radius: var(--radius);
-  padding: 6px 10px;
+  color: var(--accent-ink);
+  font-weight: 600;
   font-size: 13px;
+  text-align: center;
   transition:
     background var(--t-mid) var(--ease),
     border-color var(--t-mid) var(--ease),
     transform var(--t-fast) var(--ease);
 }
 
-.ghost:hover {
-  background: #333337;
+.card:hover .play {
+  background: #e0e0e0;
+  border-color: #e0e0e0;
 }
 
-.ghost:active {
+.card:active .play {
   transform: scale(0.98);
 }
 
@@ -833,6 +610,39 @@ body {
   padding: 24px 12px;
   text-align: center;
   font-size: 13px;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.foot p {
+  margin: 0;
+}
+
+.foot strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.foot a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-strong);
+  transition: border-color var(--t-mid) var(--ease);
+}
+
+.foot a:hover {
+  border-color: var(--text);
 }
 
 @keyframes app-in {
@@ -847,65 +657,10 @@ body {
   }
 }
 
-@keyframes chip-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.65;
-  }
-}
-
 @keyframes slide-fade-in {
   from {
     opacity: 0;
     transform: translate3d(0, 8px, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes overlay-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes dialog-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 10px, 0) scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes stage-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes stage-body-in {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 6px, 0);
   }
 
   to {
@@ -938,7 +693,7 @@ body {
     min-width: 0;
   }
 
-  .launch-mode {
+  .launch-note {
     max-width: none;
   }
 }
@@ -949,20 +704,20 @@ body {
     <header class="topbar">
       <div class="brand">
         <div class="brand-text">
-          <h1>eag1eR</h1>
+          <h1>EaglerHub</h1>
           <p class="brand-sub">
             <span class="ind-dot ind-dot--local" aria-hidden="true"></span>
-            jsDelivr CDN
+            <span>By mr blob · every build opens straight from GitHub Pages</span>
           </p>
         </div>
       </div>
 
       <label class="search" id="search-wrap">
-        <span class="sr-only">Search clients</span>
+        <span class="sr-only">Search builds</span>
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
           <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14" />
         </svg>
-        <input id="search" type="search" placeholder="Search versions and clients" autocomplete="off" />
+        <input id="search" type="search" placeholder="Search clients and versions" autocomplete="off" />
       </label>
     </header>
 
@@ -985,27 +740,14 @@ body {
         </button>
       </div>
 
-      <div class="launch-mode">
-        <p class="launch-mode-label" id="launch-mode-label">Open as</p>
-        <div class="mode-toggle" role="radiogroup" aria-labelledby="launch-mode-label">
-          <button type="button" class="mode-btn is-active" data-mode="about-blank" role="radio" aria-checked="true">
-            about:blank
-          </button>
-          <button type="button" class="mode-btn" data-mode="blob" role="radio" aria-checked="false">
-            Blob URL
-          </button>
-        </div>
-        <p id="mode-help" class="mode-help">Writes the client into a blank tab. Worlds usually save.</p>
-        <p class="mode-active">
-          <span class="ind-dot ind-dot--mode" aria-hidden="true"></span>
-          <span id="mode-indicator">about:blank</span>
-        </p>
+      <div class="launch-note">
+        <p class="launch-note-label">How to play</p>
+        <p class="launch-note-text">Every card is a direct link to the build's own file on GitHub Pages. Press Play and the game opens in a new tab, ready to go.</p>
       </div>
     </section>
 
     <div class="indicator-bar" id="indicator-bar" aria-live="polite"></div>
 
-    <p id="banner" class="banner" hidden></p>
     <div class="workspace">
       <div>
         <p id="status" class="status">Loading catalog…</p>
@@ -1013,42 +755,20 @@ body {
       </div>
       <aside class="packs" aria-label="Texture packs">
         <h2 class="packs-title">Texture packs</h2>
-        <p class="mode-help">Download a zip, then in game go to Options → Resource Packs and upload it. 1.8.9 packs fit 1.8 clients; 1.20.6 packs fit 1.20.6.</p>
+        <p class="side-note">Download a zip, then open Options → Resource Packs in game and upload it. A 1.8.9 pack suits any 1.8 client, and a 1.20.6 pack suits the 1.20.6 build.</p>
         <ul class="legend" aria-label="Pack indicators">
-          <li><span class="ind-dot ind-dot--ok" aria-hidden="true"></span> Fits selected client</li>
-          <li><span class="ind-dot ind-dot--warn" aria-hidden="true"></span> Version mismatch</li>
-          <li><span class="ind-dot ind-dot--muted" aria-hidden="true"></span> No client selected</li>
+          <li><span class="ind-dot ind-dot--ok" aria-hidden="true"></span> Fits the selected client</li>
+          <li><span class="ind-dot ind-dot--warn" aria-hidden="true"></span> Different Minecraft version</li>
+          <li><span class="ind-dot ind-dot--muted" aria-hidden="true"></span> No client selected yet</li>
         </ul>
         <div id="pack-list" class="pack-list"></div>
       </aside>
     </div>
-  </div>
 
-  <div id="stage" class="stage" hidden>
-    <div class="stage-bar">
-      <p id="stage-title">Playing</p>
-      <button type="button" id="close-stage" class="ghost compact">Back to launcher</button>
-    </div>
-  </div>
-
-  <div id="overlay" class="overlay" hidden>
-    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
-      <p class="eyebrow" id="overlay-kicker">Launching</p>
-      <h2 id="overlay-title">Client</h2>
-      <p id="overlay-msg">Downloading client…</p>
-      <div
-        class="progress"
-        role="progressbar"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-valuenow="0"
-        id="overlay-progress"
-      >
-        <div id="overlay-fill" class="progress-fill"></div>
-      </div>
-      <p id="overlay-pct" class="pct">0%</p>
-      <button type="button" id="cancel-launch" class="ghost">Cancel</button>
-    </div>
+    <footer class="foot">
+      <p><strong>EaglerHub</strong> is made by mr blob. Everything here is hosted statically on GitHub Pages — no servers, no accounts. Pick a game and play.</p>
+      <p><a href="https://github.com/mr-blobbb/EaglerHub" target="_blank" rel="noopener noreferrer">Source on GitHub</a></p>
+    </footer>
   </div>
 
   <script>
@@ -1085,30 +805,30 @@ const FALLBACK_PACKS = [
   { file: "TexturePacks/Summer 16x_1.8.9.zip", version: "1.8.9", size: 20672925 },
 ];
 
-const SKIP_FILES = new Set(["index.html"]);
-const MODE_KEY = "eagler.launchMode";
 const TAB_KEY = "eagler.tab";
-const CDN_BASE = "https://cdn.jsdelivr.net/gh/X-NOBER/EGMC@main/";
-const blobUrls = [];
+const SEL_KEY = "eagler.selectedClient";
+
+// This site is served at https://mr-blobbb.github.io/EaglerHub/, and every build
+// lives in this same repository, so each card links straight to the file's own
+// URL — no fetching, no blobs, no about:blank.
+const BASE = "https://mr-blobbb.github.io/EaglerHub/";
+
+function fileUrl(filePath) {
+  const encoded = String(filePath)
+    .replace(/\\/g, "/")
+    .split("/")
+    .filter(Boolean)
+    .map(encodeURIComponent)
+    .join("/");
+  return BASE + encoded;
+}
 
 const grid = document.getElementById("grid");
 const packList = document.getElementById("pack-list");
 const statusEl = document.getElementById("status");
-const banner = document.getElementById("banner");
 const search = document.getElementById("search");
-const overlay = document.getElementById("overlay");
-const overlayTitle = document.getElementById("overlay-title");
-const overlayMsg = document.getElementById("overlay-msg");
-const overlayFill = document.getElementById("overlay-fill");
-const overlayPct = document.getElementById("overlay-pct");
-const cancelBtn = document.getElementById("cancel-launch");
-const stage = document.getElementById("stage");
-const stageTitle = document.getElementById("stage-title");
-const closeStageBtn = document.getElementById("close-stage");
 const indicatorBar = document.getElementById("indicator-bar");
 const searchWrap = document.getElementById("search-wrap");
-const modeIndicator = document.getElementById("mode-indicator");
-const overlayProgress = document.getElementById("overlay-progress");
 const countAll = document.getElementById("count-all");
 const countClient = document.getElementById("count-client");
 const countVanilla = document.getElementById("count-vanilla");
@@ -1117,17 +837,6 @@ let catalog = [];
 let packs = [];
 let selectedClientFile = "";
 let activeTab = localStorage.getItem(TAB_KEY) || "all";
-let launchMode = localStorage.getItem(MODE_KEY) || "about-blank";
-let abortLaunch = null;
-let launchWindow = null;
-let launching = false;
-let launchingFile = "";
-let launchGen = 0;
-
-function showBanner(message) {
-  banner.hidden = !message;
-  banner.textContent = message || "";
-}
 
 function fileName(path) {
   return String(path || "").replace(/\\/g, "/").split("/").pop();
@@ -1273,22 +982,12 @@ function renderIndicators(visibleCount) {
     indicatorBar.append(chip("Search", `"${query}"`, "accent"));
   }
 
-  indicatorBar.append(chip("Launch", launchMode === "blob" ? "Blob URL" : "about:blank", "accent"));
-  indicatorBar.append(chip("Read", "jsDelivr", "ok"));
+  indicatorBar.append(chip("Host", "mr-blobbb.github.io/EaglerHub", "ok"));
 
   if (client) {
     indicatorBar.append(chip("Selected", client.name, "ok"));
   } else {
     indicatorBar.append(chip("Selected", "None", "muted"));
-  }
-
-  if (launching && launchingFile) {
-    const launchingItem = catalog.find((item) => item.file === launchingFile);
-    indicatorBar.append(chip("Status", launchingItem ? `Launching ${launchingItem.name}` : "Launching…", "busy"));
-  }
-
-  if (stage && !stage.hidden) {
-    indicatorBar.append(chip("Playing", stageTitle.textContent || "In launcher", "ok"));
   }
 
   indicatorBar.append(chip("Packs", String(packs.length), "muted"));
@@ -1326,7 +1025,7 @@ function renderPacks() {
   if (!packs.length) {
     const empty = document.createElement("p");
     empty.className = "empty";
-    empty.textContent = "No zips in TexturePacks.";
+    empty.textContent = "No texture pack zips found in TexturePacks.";
     packList.append(empty);
     return;
   }
@@ -1337,9 +1036,14 @@ function renderPacks() {
     const link = document.createElement("a");
     link.style.setProperty("--n", String(i));
     const dotClass = !client ? "ind-dot--muted" : compatible ? "ind-dot--ok" : "ind-dot--warn";
-    const fitLabel = !client ? "Pick a client to check fit" : compatible ? "Fits selected client" : "Wrong MC version";
-    link.className = `pack${compatible ? "" : " is-incompatible"}${!client ? " is-neutral" : ""}`;
-    link.href = cdnUrl(pack.file).href;
+    const fitLabel = !client
+      ? "Select a client to check fit"
+      : compatible
+        ? "Fits the selected client"
+        : "Different Minecraft version";
+    link.className = `pack${compatible ? "" : " is-incompatible"}`;
+    link.href = fileUrl(pack.file);
+    link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.innerHTML = `
       <div class="pack-row">
@@ -1363,7 +1067,9 @@ function render() {
   if (!items.length) {
     const empty = document.createElement("p");
     empty.className = "empty";
-    empty.textContent = catalog.length ? "No matches." : "No client HTML files found in Clients or Vanilla.";
+    empty.textContent = catalog.length
+      ? "No builds match that search."
+      : "No build files found in Clients or Vanilla.";
     grid.append(empty);
     setStatus("0 shown");
     renderPacks();
@@ -1373,41 +1079,38 @@ function render() {
 
   for (let i = 0; i < items.length; i += 1) {
     const item = items[i];
-    const card = document.createElement("article");
+    const card = document.createElement("a");
     card.style.setProperty("--n", String(Math.min(i, 14)));
     const isSelected = item.file === selectedClientFile;
-    const isLaunching = launching && item.file === launchingFile;
-    card.className = `card ${item.category}${isSelected ? " is-selected" : ""}${isLaunching ? " is-launching" : ""}`;
-    card.setAttribute("aria-selected", String(isSelected));
+    card.className = `card ${item.category}${isSelected ? " is-selected" : ""}`;
+    card.href = fileUrl(item.file);
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+    card.setAttribute("aria-label", `Play ${item.name}`);
     const dotClass = item.category === "vanilla" ? "ind-dot--vanilla" : "ind-dot--client";
     const selectedMark = isSelected ? '<span class="card-flag">Selected</span>' : "";
-    const launchMark = isLaunching ? '<span class="card-flag card-flag--busy">Launching</span>' : "";
     card.innerHTML = `
       <div class="card-top">
         <span class="badge"><span class="ind-dot ${dotClass}" aria-hidden="true"></span>${item.tag}</span>
         <span class="size">${formatBytes(item.size)}</span>
       </div>
       ${selectedMark}
-      ${launchMark}
       <h2>${item.name}</h2>
       <p class="meta">${item.category === "vanilla" ? "WASM build" : (item.version || "Custom client")}</p>
-      <button type="button" class="play"${isLaunching ? " disabled" : ""}>${isLaunching ? "Launching…" : "Play"}</button>
+      <span class="play">Play</span>
     `;
+    // Remembering the last clicked build keeps the texture-pack fit hints useful
+    // after the game's tab comes back to this page.
     card.addEventListener("click", () => {
+      if (selectedClientFile === item.file) return;
       selectedClientFile = item.file;
-      render();
+      localStorage.setItem(SEL_KEY, item.file);
+      window.setTimeout(render, 0);
     });
-    card.querySelector(".play").addEventListener("click", (event) => {
-      event.stopPropagation();
-      selectedClientFile = item.file;
-      renderPacks();
-      launch(item);
-    });
-    card.addEventListener("dblclick", () => launch(item));
     grid.append(card);
   }
 
-  setStatus(`${items.length} shown in grid`);
+  setStatus(`${items.length} of ${catalog.length} builds shown`);
   renderPacks();
   renderIndicators(items.length);
 }
@@ -1431,316 +1134,19 @@ function bindTabState() {
   });
 }
 
-const MODE_HELP = {
-  "about-blank": "Writes the client into a blank tab. Worlds usually save.",
-  blob: "Opens a temporary blob: tab. More isolated; saves may not persist.",
-};
-
-function bindLaunchMode() {
-  const buttons = [...document.querySelectorAll(".mode-btn")];
-  const help = document.getElementById("mode-help");
-
-  const apply = () => {
-    for (const button of buttons) {
-      const active = button.dataset.mode === launchMode;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-checked", String(active));
-    }
-    help.textContent = MODE_HELP[launchMode] || MODE_HELP["about-blank"];
-    if (modeIndicator) {
-      modeIndicator.textContent = launchMode === "blob" ? "Blob URL" : "about:blank";
-    }
-    renderIndicators(visibleItems().length);
-  };
-
-  for (const button of buttons) {
-    button.addEventListener("click", () => {
-      launchMode = button.dataset.mode;
-      localStorage.setItem(MODE_KEY, launchMode);
-      apply();
-    });
-  }
-  apply();
-}
-
-function loadingDocument(name) {
-  const safe = name.replace(/[<>&]/g, "");
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Loading ${safe}</title>
-  <style>
-    html,body{height:100%;margin:0;background:#07090c;color:#d9f5e4;font-family:Segoe UI,sans-serif;}
-    body{display:grid;place-items:center;}
-    .box{width:min(28rem,calc(100% - 2rem));text-align:center;}
-    h1{margin:0 0 .4rem;font-size:1.15rem;}
-    p{color:#8fa397;}
-    .bar{height:8px;background:#121816;border-radius:99px;overflow:hidden;}
-    .fill{height:100%;width:0;background:#6ee7a8;}
-  </style>
-</head>
-<body>
-  <div class="box">
-    <h1>Loading ${safe}</h1>
-    <p id="msg">Opening client…</p>
-    <div class="bar"><div class="fill" id="fill"></div></div>
-    <p id="pct">0%</p>
-  </div>
-</body>
-</html>`;
-}
-
-function setProgress(percent, message, received, total) {
-  const width = Math.max(0, Math.min(100, percent));
-  overlayFill.style.width = `${width}%`;
-  if (overlayProgress) {
-    overlayProgress.setAttribute("aria-valuenow", String(Math.round(width)));
-  }
-  overlayPct.textContent = total
-    ? `${width.toFixed(0)}% · ${formatBytes(received)} / ${formatBytes(total)}`
-    : `${width.toFixed(0)}%`;
-  if (message) overlayMsg.textContent = message;
-
-  if (launchWindow && !launchWindow.closed) {
-    try {
-      const fill = launchWindow.document.getElementById("fill");
-      const pct = launchWindow.document.getElementById("pct");
-      const msg = launchWindow.document.getElementById("msg");
-      if (fill) fill.style.width = `${width}%`;
-      if (pct) pct.textContent = overlayPct.textContent;
-      if (msg && message) msg.textContent = message;
-    } catch {
-      // The game document may already have replaced the loader.
-    }
-  }
-}
-
-function closeOverlay() {
-  overlay.hidden = true;
-  abortLaunch = null;
-}
-
-function stopLaunchWork({ closeWindow = true } = {}) {
-  if (abortLaunch) {
-    abortLaunch.abort();
-    abortLaunch = null;
-  }
-  if (closeWindow && launching && launchWindow && !launchWindow.closed) {
-    launchWindow.close();
-  }
-  launching = false;
-  launchingFile = "";
-  overlay.hidden = true;
-}
-
-function cancelCurrentLaunch() {
-  launchGen += 1;
-  stopLaunchWork({ closeWindow: true });
-  render();
-}
-
-async function streamToBlob(stream, total, type, onProgress, signal) {
-  const reader = stream.getReader();
-  const chunks = [];
-  let received = 0;
-  while (true) {
-    if (signal?.aborted) throw new DOMException("Aborted", "AbortError");
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
-    received += value.length;
-    onProgress(total ? (received / total) * 100 : 0, received, total);
-  }
-  return new Blob(chunks, { type });
-}
-
-function cdnUrl(path) {
-  const encoded = String(path)
-    .replace(/\\/g, "/")
-    .split("/")
-    .filter(Boolean)
-    .map(encodeURIComponent)
-    .join("/");
-  return new URL(encoded, CDN_BASE);
-}
-
-async function readClientHttp(url, onProgress, signal) {
-  const response = await fetch(url, { signal, mode: "cors" });
-  if (!response.ok) {
-    throw new Error(`Could not fetch ${url.href} (${response.status})`);
-  }
-  const total = Number(response.headers.get("Content-Length")) || 0;
-  if (response.body) {
-    return streamToBlob(response.body, total, "text/html", onProgress, signal);
-  }
-  const blob = await response.blob();
-  onProgress(100, blob.size, blob.size);
-  return blob;
-}
-
-async function loadClientBlob(path, onProgress, signal) {
-  return readClientHttp(cdnUrl(path), onProgress, signal);
-}
-
-function closeStage() {
-  stage.querySelectorAll("iframe").forEach((frame) => frame.remove());
-  stage.hidden = true;
-  showBanner("");
-  renderIndicators(visibleItems().length);
-}
-
-function openBlankWindow() {
-  try {
-    const win = window.open("about:blank", "eaglercraft-client");
-    if (win && !win.closed) return win;
-  } catch {
-    // Popup blocked.
-  }
-  return null;
-}
-
-function writeHtmlDocument(doc, html) {
-  if (!doc) throw new Error("Could not write HTML into about:blank.");
-  doc.open("text/html", "replace");
-  doc.write(html);
-  doc.close();
-}
-
-async function putHtmlInTarget(target, mode, blob) {
-  if (mode === "blob") {
-    const blobUrl = URL.createObjectURL(blob);
-    blobUrls.push(blobUrl);
-    if (target.location) {
-      target.location.replace(blobUrl);
-    } else {
-      target.src = blobUrl;
-    }
-    return;
-  }
-
-  const html = await blob.text();
-  if (target.document) {
-    writeHtmlDocument(target.document, html);
-    return;
-  }
-  const doc = target.contentDocument;
-  writeHtmlDocument(doc, html);
-}
-
-async function playInLauncher(item, mode, blob) {
-  closeStage();
-  stageTitle.textContent = item.name;
-  const frame = document.createElement("iframe");
-  frame.title = item.name;
-  frame.allow = "fullscreen; pointer-lock; clipboard-read; clipboard-write; autoplay; gamepad";
-  frame.setAttribute("allowfullscreen", "true");
-  frame.src = "about:blank";
-  stage.append(frame);
-  stage.hidden = false;
-  renderIndicators(visibleItems().length);
-  await putHtmlInTarget(frame, mode, blob);
-}
-
-async function launch(item) {
-  const mode = launchMode;
-  // Open the tab while the click is still a user gesture. Re-rendering the
-  // grid first removes the Play button and browsers then block window.open.
-  const win = openBlankWindow();
-  const gen = launchGen + 1;
-  launchGen = gen;
-
-  if (abortLaunch) {
-    abortLaunch.abort();
-    abortLaunch = null;
-  }
-  if (launchWindow && launchWindow !== win && !launchWindow.closed) {
-    launchWindow.close();
-  }
-
-  launching = true;
-  launchingFile = item.file;
-  launchWindow = win;
-
-  overlay.hidden = false;
-  overlayTitle.textContent = item.name;
-  setProgress(0, "Fetching from CDN…", 0, item.size);
-  render();
-
-  const inPage = !win;
-  if (inPage) {
-    showBanner("Popups are blocked, so this client will open in the launcher window. Allow popups to use a separate tab.");
-  } else {
-    showBanner("");
-    try {
-      writeHtmlDocument(win.document, loadingDocument(item.name));
-    } catch {
-      // Fetch + inject can still replace this tab.
-    }
-  }
-
-  const controller = new AbortController();
-  abortLaunch = controller;
-
-  try {
-    const fileBlob = await loadClientBlob(
-      item.file,
-      (percent, received, total) => {
-        if (gen !== launchGen) return;
-        setProgress(percent, "Fetching from CDN…", received, total);
-      },
-      controller.signal,
-    );
-    const blob = new Blob([fileBlob], { type: "text/html" });
-
-    if (gen !== launchGen) return;
-    if (!inPage && (!launchWindow || launchWindow.closed)) return;
-    setProgress(100, "Writing into " + (mode === "blob" ? "blob URL" : "about:blank") + "…", blob.size, blob.size);
-
-    if (inPage) {
-      await playInLauncher(item, mode, blob);
-      return;
-    }
-
-    await putHtmlInTarget(launchWindow, mode, blob);
-    launchWindow.focus();
-  } catch (error) {
-    if (error?.name === "AbortError" || gen !== launchGen) return;
-    showBanner(error.message || "Could not fetch client HTML.");
-    if (launchWindow && !launchWindow.closed) {
-      try {
-        writeHtmlDocument(
-          launchWindow.document,
-          loadingDocument("Fetch failed"),
-        );
-        const msg = launchWindow.document.getElementById("msg");
-        if (msg) msg.textContent = error.message || "Could not fetch client HTML.";
-      } catch {
-        launchWindow.close();
-      }
-    }
-  } finally {
-    if (gen !== launchGen) return;
-    launching = false;
-    launchingFile = "";
-    closeOverlay();
-    render();
-  }
-}
-
 function loadCatalog() {
   catalog = sortCatalog(FALLBACK_FILES.map((entry) => parseClientFile(entry)));
   packs = FALLBACK_PACKS.map((entry) => parsePackFile(entry));
-  showBanner("");
+  const saved = localStorage.getItem(SEL_KEY);
+  if (saved && catalog.some((item) => item.file === saved)) {
+    selectedClientFile = saved;
+  }
   render();
 }
 
 bindTabs();
 bindTabState();
-bindLaunchMode();
 search.addEventListener("input", render);
-cancelBtn.addEventListener("click", cancelCurrentLaunch);
-closeStageBtn.addEventListener("click", closeStage);
 loadCatalog();
   </script>
 </body>
