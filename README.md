@@ -1,4 +1,7 @@
-# EGMC
+# EaglerHub
+
+> By mr blob - Credit to X-HUBER
+
 ## Named clients
 
 Larp Client 1.14.4, Eclipse, Kozmo, Resent, Astra, Myven, Pixel, Tuff Client Beta, Aero, Huzzium, EB Client 1.8.8, EB Client 1.14.4, GX-Client, Precision Client
